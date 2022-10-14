@@ -106,4 +106,6 @@ void antiCls(int &condicionCls) {
         condicionCls = 0;
     }
 }
+
+
 //-----------

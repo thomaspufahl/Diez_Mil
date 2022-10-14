@@ -9,20 +9,15 @@
 
 
 
-void unJugador(int &condicionCls, char jugadores[][35], int puntuacion[], int &rondas) {
+int unJugador(int &condicionCls, char jugadores[][35], int puntuacion[], int &rondas) {
     rlutil::cls();
     condicionCls = 1;
-
-    label("UN JUGADOR", 1, 1);
-    rlutil::locate(1, 2);
-    std::cout << jugadores[0];
-
-    rlutil::locate(1, 3);
-    std::cout << "puntaje: ";
-    rlutil::locate(1, 4);
-    std::cout << puntuacion[0];
-
-
-
-    rlutil::anykey();
+    do {
+        rondas++;
+        std::cout << "funka";
+        if (rondas==3) {
+            rlutil::anykey();
+            return 0;
+        }
+    } while (rondas!=0);
 }

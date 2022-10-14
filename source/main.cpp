@@ -24,7 +24,7 @@ int main() {
     //DATOS DE JUGADORES
     char jugadores[2][35];
     int puntaje[2];
-    int turno = 0;
+    int turno;
     //inicializa el puntaje en 0
     vecZero(puntaje, 2);
 
@@ -37,7 +37,9 @@ int main() {
     while (true) {
         rlutil::hidecursor();
         antiCls(condicionCls);
+        turno=0;
 
+        bordeMenu();
         label("UN JUGADOR", 10, 5);
         label("DOS JUGADORES", 10, 7);
         label("SALIR", 10, 9);
