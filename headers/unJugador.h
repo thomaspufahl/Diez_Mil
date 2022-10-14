@@ -9,7 +9,7 @@
 
 
 
-void unJugador(int &condicionCls, char jugadores[][35], int puntuacion[]) {
+void unJugador(int &condicionCls, char jugadores[][35], int puntuacion[], int &rondas) {
     rlutil::cls();
     condicionCls = 1;
 

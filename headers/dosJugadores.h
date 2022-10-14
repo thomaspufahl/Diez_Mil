@@ -7,7 +7,7 @@
 
 #endif //DIEZ_MIL_DOSJUGADORES_H
 
-void dosJugadores(int &condicionCls, char jugadores[][35], int puntuacion[]) {
+void dosJugadores(int &condicionCls, char jugadores[][35], int puntuacion[], int &rondas) {
     rlutil::cls();
     condicionCls = 1;
 

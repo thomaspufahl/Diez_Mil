@@ -3,35 +3,40 @@
 #include "../headers/dosJugadores.h"
 #include "../headers/unJugador.h"
 
+
+
 int main() {
     //PARA PUNTERO
     int posY = 5;
     int posX = 8;
+    // »
     int caracter = 175;
 
     //PARA MOV. PUNTERO
     int posY_Inicial = 5;
     int posY_Final = 9;
-    //int posX_Inicial = 10;
-    //int posX_Final = 10;
     int salto = 2;
 
-    int ANTICLS=0;
+    //BANDERA DE CLS
+    //evita hacer cls siempre que cambie de opcion
+    int condicionCls=0;
 
+    //DATOS DE JUGADORES
     char jugadores[2][35];
     int puntaje[2];
+    int turno = 0;
+    //inicializa el puntaje en 0
     vecZero(puntaje, 2);
-    puntaje[1]=15;
+
+    //COLORES DE LA CONSOLA
+    rlutil::setBackgroundColor(rlutil::LIGHTBLUE);
+    rlutil::setColor(rlutil::WHITE);
+    rlutil::cls();
+
 
     while (true) {
         rlutil::hidecursor();
-
-
-        if (ANTICLS==1) {
-            rlutil::cls();
-            ANTICLS = 0;
-        }
-
+        antiCls(condicionCls);
 
         label("UN JUGADOR", 10, 5);
         label("DOS JUGADORES", 10, 7);
@@ -54,15 +59,15 @@ int main() {
             case 1:
                 switch (posY) {
                     case 5:
-                        //TODAVIA NO FUNCIONA EL INGRESO DE NOMBRES
                         petNombre(jugadores, 1);
-                        unJugador(ANTICLS, jugadores, puntaje);
+                        unJugador(condicionCls, jugadores, puntaje, turno);
                         break;
                     case 7:
                         petNombre(jugadores, 2);
-                        dosJugadores(ANTICLS, jugadores, puntaje);
+                        dosJugadores(condicionCls, jugadores, puntaje, turno);
                         break;
                     case 9:
+                        //SALIR
                         return 0;
                     default:
                         break;
