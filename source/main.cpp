@@ -28,11 +28,11 @@ int main() {
     //inicializa el puntaje en 0
     vecZero(puntaje, 2);
 
-    //COLORES DE LA CONSOLA
+    //ESTILO DE LA CONSOLA
     rlutil::setBackgroundColor(rlutil::LIGHTBLUE);
     rlutil::setColor(rlutil::WHITE);
     rlutil::cls();
-
+    bordeMenu();
 
     while (true) {
         rlutil::hidecursor();

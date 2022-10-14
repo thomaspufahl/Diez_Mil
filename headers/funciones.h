@@ -12,7 +12,7 @@
 void endl();
 void label(char* texto, int posX, int posY);
 void labelInt(int caracter, int posX, int posY);
-void dados();
+void bordeMenu();
 
 //2. PUNTERO
 void punteroArriba (int &posX, int &posY, int caracter, int limite, int salto);
@@ -41,8 +41,25 @@ void labelInt(int caracter, int posX, int posY) {
     std::cout << (char)caracter;
 }
 
-void dados() {
-
+void bordeMenu() {
+    //vertical
+    int posVerticalIzq = 29;
+    for (int i = 3; i < posVerticalIzq; ++i) {
+        rlutil::locate(4, i);
+        std::cout << (char)186;
+    }
+    //esquina inf izq
+    rlutil::locate(4, 29);
+    std::cout << (char)200;
+    //esquina sup izq
+    rlutil::locate(4, 2);
+    std::cout << (char)201;
+    //horizontal inf
+    rlutil::locate(5, 29);
+    std::cout << (char)205;
+    //horizontal sup
+    rlutil::locate(5, 2);
+    std::cout << (char)205;
 }
 
 //-----------
