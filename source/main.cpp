@@ -16,8 +16,12 @@ int main() {
     //int posX_Final = 10;
     int salto = 2;
 
-    int ANTICLS;
+    int ANTICLS=0;
 
+    char jugadores[2][35];
+    int puntaje[2];
+    vecZero(puntaje, 2);
+    puntaje[1]=15;
 
     while (true) {
         rlutil::hidecursor();
@@ -25,8 +29,8 @@ int main() {
 
         if (ANTICLS==1) {
             rlutil::cls();
+            ANTICLS = 0;
         }
-        ANTICLS = 0;
 
 
         label("UN JUGADOR", 10, 5);
@@ -50,10 +54,13 @@ int main() {
             case 1:
                 switch (posY) {
                     case 5:
-                        unJugador(ANTICLS);
+                        //TODAVIA NO FUNCIONA EL INGRESO DE NOMBRES
+                        petNombre(jugadores, 1);
+                        unJugador(ANTICLS, jugadores, puntaje);
                         break;
                     case 7:
-                        dosJugadores(ANTICLS);
+                        petNombre(jugadores, 2);
+                        dosJugadores(ANTICLS, jugadores, puntaje);
                         break;
                     case 9:
                         return 0;
