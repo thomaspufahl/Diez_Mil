@@ -4,7 +4,6 @@
 #include "../headers/unJugador.h"
 
 
-
 int main() {
     //PARA PUNTERO
     int posY = 5;
@@ -38,6 +37,7 @@ int main() {
         rlutil::hidecursor();
         antiCls(condicionCls);
         turno=0;
+        vecZero(puntaje, 2);
 
         bordeMenu();
         label("UN JUGADOR", 10, 5);
@@ -62,7 +62,7 @@ int main() {
                 switch (posY) {
                     case 5:
                         petNombre(jugadores, 1);
-                        unJugador(condicionCls, jugadores, puntaje, turno);
+                        unJugador(condicionCls, jugadores, 1, puntaje, turno);
                         break;
                     case 7:
                         petNombre(jugadores, 2);
