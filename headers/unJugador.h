@@ -29,7 +29,7 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
 
         //CUERPO
         //jugador
-        lineaVertical(46, 124);
+        lineaVertical(46, 179);
         rlutil::locate(20, 7);
         std::cout << "JUEGA " << strupr(jugadores[0]);
         //puntaje
@@ -50,18 +50,25 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
             label("                                 ", 11, 15);
             mezclar();
         }
+
         //"tirar" y guardar
         guardarDados(dados, 5);
+
         //mostrar tirada
         mostrarDados(dados, 5);
-        //identifico jugada
+
+        //identifico jugada || algoritmo
         int jugada = identificarJugada(dados, 5, puntosXRonda);
+
         //mostrar Jugada
         mostrarJugada(jugada);
+
         //puntos
         puntuacion[0]+=puntosXRonda;
+
         //muestro puntaje a sumar
         mostrarSumaPuntaje(puntosXRonda);
+
         //update de label con el puntaje
         rlutil::msleep(1000);
         rlutil::locate(10, 9);
