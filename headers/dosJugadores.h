@@ -11,7 +11,8 @@ int dosJugadores(int &condicionCls, char jugadores[][35], int cantidadPJ, int pu
     rlutil::cls();
     condicionCls = 1;
     int puntosXRonda;
-    int dados[5];
+    int dados[6];
+    int mostrarCaso4;
     do {
         rondas++;
         pantallaTurno(rondas, jugadores, cantidadPJ, puntuacion);
@@ -57,16 +58,16 @@ int dosJugadores(int &condicionCls, char jugadores[][35], int cantidadPJ, int pu
         }
 
         //"tirar" y guardar
-        guardarDados(dados, 5);
+        guardarDados(dados, 6);
 
         //mostrar tirada
-        mostrarDados(dados, 5);
+        mostrarDados(dados, 6);
 
         //identifico jugada || algoritmo
-        int jugada = identificarJugada(dados, 5, puntosXRonda);
+        int jugada = identificarJugada(dados, 6, puntosXRonda, mostrarCaso4);
 
         //mostrar Jugada
-        mostrarJugada(jugada);
+        mostrarJugada(jugada, mostrarCaso4);
 
         //puntos
         if (rondas%2!=0) {
@@ -96,6 +97,6 @@ int dosJugadores(int &condicionCls, char jugadores[][35], int cantidadPJ, int pu
             std::cout << "FIN DEL JUEGO";
             rlutil::anykey();
         }
-    } while (puntuacion[0]!=30);
+    } while (rondas!=3); //debe ser 10
     return 0;
 }

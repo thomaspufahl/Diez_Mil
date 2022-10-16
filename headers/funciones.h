@@ -82,9 +82,11 @@ void antiCls(int &condicionCls) {
 }
 
 void guardarDados(int vec[], int tam) {
+
     srand(time(nullptr));
     for (int i = 0; i < tam; ++i) {
         vec[i]=(1+rand()%6);
     }
+
 }
 //-----------

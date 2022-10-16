@@ -13,7 +13,8 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
     rlutil::cls();
     condicionCls = 1;
     int puntosXRonda;
-    int dados[5];
+    int dados[6];
+    int mostrarCaso4;
     do {
         rondas++;
         pantallaTurno(rondas, jugadores, cantidadPJ, puntuacion);
@@ -49,19 +50,21 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
         if (keyMezcla==32) {
             label("                                 ", 11, 15);
             mezclar();
+        } else {
+            label("                                 ", 11, 15);
         }
 
         //"tirar" y guardar
-        guardarDados(dados, 5);
+        guardarDados(dados, 6);
 
         //mostrar tirada
-        mostrarDados(dados, 5);
+        mostrarDados(dados, 6);
 
         //identifico jugada || algoritmo
-        int jugada = identificarJugada(dados, 5, puntosXRonda);
+        int jugada = identificarJugada(dados, 6, puntosXRonda, mostrarCaso4);
 
         //mostrar Jugada
-        mostrarJugada(jugada);
+        mostrarJugada(jugada, mostrarCaso4);
 
         //puntos
         puntuacion[0]+=puntosXRonda;
@@ -77,12 +80,13 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
         rlutil::msleep(500);
         label("PULSA UNA TECLA PARA CONTINUAR", 11, 22);
         rlutil::anykey();
-        if (puntuacion[0]==30) {
+        if (puntuacion[0]==10000) {
             rlutil::cls();
             rlutil::locate(8, 4);
             std::cout << "FIN DEL JUEGO";
             rlutil::anykey();
+            return 0;
         }
-    } while (puntuacion[0]!=30);
+    } while (rondas!=10); //debe ser 10
     return 0;
 }

@@ -20,7 +20,7 @@ void lineaHorizontal(int posY, int caracter);
 void lineaVertical(int posX, int caracter);
 void mezclar();
 void mostrarDados(const int vec[], int tam);
-void mostrarJugada(int jugada);
+void mostrarJugada(int jugada, int varCaso4);
 void mostrarSumaPuntaje(int puntaje);
 void cuadrado(int posX, int posY, int caracter);
 void limpiarCuadrado(int posX, int posY);
@@ -160,10 +160,10 @@ void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntua
     std::cout << "RONDA N" << char(248) << " " << rondas;
 
     rlutil::locate(49, 8);
-    if (rondas%2!=0) {
-        std::cout << "PROXIMO TURNO: " << strupr(jugadores[0]);
-    } else {
+    if (rondas%2==0 && cantidadPJ > 1) {
         std::cout << "PROXIMO TURNO: " << strupr(jugadores[1]);
+    } else {
+        std::cout << "PROXIMO TURNO: " << strupr(jugadores[0]);
     }
 
     rlutil::locate(46, 11);
@@ -298,7 +298,7 @@ void mostrarDados(const int vec[], int tam) {
     for (int i = 0; i < tam; ++i) {
         if (i==3) {
             contY=8;
-            cont=10;
+            cont=0;
         }
         ///Esquinas
         //SUP
@@ -363,13 +363,32 @@ void mostrarDados(const int vec[], int tam) {
     }
 }
 
-void mostrarJugada(int jugada) {
+void mostrarJugada(int jugada, int varCaso4) {
     switch (jugada) {
         case 0:
-            label("TRIO 1 AMPLIADO", 19, 14);
+            label("JUGADA PERDEDORA:(", 19, 14);
             break;
         case 1:
-            label("TRIO 1 AMPLIADO SI", 19, 14);
+            label("JUEGO DE 1!", 19, 14);
+            break;
+        case 2:
+            label("JUEGO DE 5!", 19, 14);
+            break;
+        case 3:
+            label("TRIO DE 1!", 19, 14);
+            break;
+        case 4:
+            rlutil::locate(19, 14);
+            std::cout << "TRIO " << varCaso4 << "++";
+            break;
+        case 5:
+            label("TRIO 1 AMPLIADO!", 19, 14);
+            break;
+        case 6:
+            label("ESCALERA LARGA!", 19, 14);
+            break;
+        case 7:
+            label("SEXTETO!", 19, 14);
             break;
         default:
             break;
