@@ -109,8 +109,6 @@ int identificarJugada(int vec[], int tam, int &puntos, int &varCaso4) {
             cont4++;
             acu4+=r4-cont4;
             if (acu4>=3) {
-                rlutil::locate(1, 1);
-                std::cout << acu4;
                 acu4=0;
                 if (band4) {
                     repetidos[0] = vec[i];
@@ -160,6 +158,7 @@ int identificarJugada(int vec[], int tam, int &puntos, int &varCaso4) {
         puntos+=100;
         return 2;
     }
+
 
     return 0;
 }

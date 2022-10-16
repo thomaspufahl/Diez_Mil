@@ -24,6 +24,7 @@ void mostrarJugada(int jugada, int varCaso4);
 void mostrarSumaPuntaje(int puntaje);
 void cuadrado(int posX, int posY, int caracter);
 void limpiarCuadrado(int posX, int posY);
+void limpiarJuego();
 
 
 
@@ -426,3 +427,23 @@ void limpiarCuadrado(int posX, int posY) {
     label(" ", posX+2, posY+1);
     label(" ", posX+3, posY+1);
 }
+
+void limpiarJuego() {
+    for (int i = 19; i < 43; ++i) {
+        label(" ", i, 14);
+        label(" ", i, 16);
+    }
+    for (int i = 48; i < 110; ++i) {
+        label(" ", i, 11);
+        label(" ", i, 12);
+        label(" ", i, 13);
+        label(" ", i, 14);
+        label(" ", i, 15);
+        label(" ", i, 19);
+        label(" ", i, 20);
+        label(" ", i, 21);
+        label(" ", i, 22);
+        label(" ", i, 23);
+    }
+}
+
