@@ -25,7 +25,7 @@ int main() {
     //DATOS DE JUGADORES
     char jugadores[2][35];
     int puntaje[2];
-    int turno;
+    int ronda;
     //inicializa el puntaje en 0
     vecZero(puntaje, 2);
 
@@ -38,7 +38,7 @@ int main() {
     while (true) {
         rlutil::hidecursor();
         antiCls(condicionCls);
-        turno=0;
+        ronda=0;
         vecZero(puntaje, 2);
 
         bordeMenu();
@@ -64,11 +64,11 @@ int main() {
                 switch (posY) {
                     case 5:
                         petNombre(jugadores, 1);
-                        unJugador(condicionCls, jugadores, 1, puntaje, turno);
+                        unJugador(condicionCls, jugadores, 1, puntaje, ronda);
                         break;
                     case 7:
                         petNombre(jugadores, 2);
-                        dosJugadores(condicionCls, jugadores, 2, puntaje, turno);
+                        dosJugadores(condicionCls, jugadores, 2, puntaje, ronda);
                         break;
                     case 9:
                         //SALIR

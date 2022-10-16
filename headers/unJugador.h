@@ -41,19 +41,60 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
         //CUERPO
 
         //Tirada
+
+        ///BORRAR ESTA MECANICA Y CAMBIARLA PARA USAR FLECHAS Y QUE SELECCIONE SI TIRAR, TIRAR NUEVAMENTE O GUARDAR EL PUNTAJE
+        ///COMENZAR UN CICLO WHILE QUE SE RELACIONE CON LOS TURNOS (TURNOS!=RONDAS)
+        ///UNA RONDA SE TERMINA CUANDO UN JUGADOR PASA SU TURNOS O EN EL CASO DE DOS JUGADORES, QUE AMBOS PASEN SU TURNO
+        /*
         //mezclar (animacion de carga)
         label("PRESIONA ESPACIO PARA TIRAR", 14, 15);
         labelInt(16, 11, 15);
         labelInt(17, 43, 15);
         int keyMezcla = rlutil::getkey();
         //espacio = 32
+
         if (keyMezcla==32) {
             label("                                 ", 11, 15);
             mezclar();
         } else {
             label("                                 ", 11, 15);
         }
+         */
 
+        int posX = 13;
+        int posY = 15;
+
+        label("TIRAR", 14, 15);
+        label("GUARDAR PUNTOS", 14, 17);
+
+        labelInt(175, posX, posY);
+
+        int key = rlutil::getkey();
+        //up    14
+        //down  15
+        //enter 1
+
+        switch (key) {
+            case 14:
+                punteroArriba(posX, posY, 175, 15, 2);
+                break;
+            case 15:
+                punteroAbajo(posX, posY, 175, 17, 2);
+                break;
+            case 1:
+                switch (posY) {
+                    case 15:
+                        label("tirar", 1, 1);
+                        break;
+                    case 17:
+                        label("guardar", 1, 1);
+                        break;
+                    default:
+                        break;
+                }
+            default:
+                break;
+        }
         //"tirar" y guardar
         guardarDados(dados, 6);
 
