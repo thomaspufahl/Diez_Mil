@@ -1,4 +1,5 @@
 #include "../headers/rlutil.h"
+#include "../headers/algoritmoPuntos.h"
 #include "../headers/funcionesEstilo.h"
 #include "../headers/funciones.h"
 #include "../headers/dosJugadores.h"

@@ -22,9 +22,6 @@ void petNombre(char jugador[][35], int cantidad);
 void vecZero (int vec[], int tam);
 void antiCls(int &condicionCls);
 void guardarDados(int vec[], int tam);
-int identificarJugada(int vec[], int tam, int &puntos);
-
-
 
 
 /// 1
@@ -90,16 +87,4 @@ void guardarDados(int vec[], int tam) {
         vec[i]=(1+rand()%6);
     }
 }
-
-int identificarJugada(int vec[], int tam, int &puntos) {
-    //puntosXRonda = puntos
-    //return = jugada
-    puntos=10;
-
-
-
-
-    return 0;
-}
-
 //-----------
