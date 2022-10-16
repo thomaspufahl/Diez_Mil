@@ -370,26 +370,26 @@ void mostrarJugada(int jugada, int varCaso4) {
             label("JUGADA PERDEDORA:(", 19, 14);
             break;
         case 1:
-            label("JUEGO DE 1!", 19, 14);
+            label("JUEGO DE 1!", 21, 14);
             break;
         case 2:
-            label("JUEGO DE 5!", 19, 14);
+            label("JUEGO DE 5!", 21, 14);
             break;
         case 3:
-            label("TRIO DE 1!", 19, 14);
+            label("TRIO DE 1!", 21, 14);
             break;
         case 4:
-            rlutil::locate(19, 14);
+            rlutil::locate(22, 14);
             std::cout << "TRIO " << varCaso4 << "++";
             break;
         case 5:
-            label("TRIO 1 AMPLIADO!", 19, 14);
+            label("TRIO 1 AMPLIADO!", 18, 14);
             break;
         case 6:
             label("ESCALERA LARGA!", 19, 14);
             break;
         case 7:
-            label("SEXTETO!", 19, 14);
+            label("SEXTETO!", 23, 14);
             break;
         default:
             break;
@@ -397,9 +397,16 @@ void mostrarJugada(int jugada, int varCaso4) {
 }
 
 void mostrarSumaPuntaje(int puntaje) {
-    label("+     PUNTOS", 20, 16);
-    rlutil::locate(21, 16);
-    std::cout << puntaje;
+    if (puntaje==10000) {
+        label("+      PUNTOS", 20, 16);
+        rlutil::locate(21, 16);
+        std::cout << puntaje;
+    } else {
+        label("+     PUNTOS", 20, 16);
+        rlutil::locate(21, 16);
+        std::cout << puntaje;
+    }
+
 }
 
 void cuadrado(int posX, int posY, int caracter) {
@@ -429,7 +436,7 @@ void limpiarCuadrado(int posX, int posY) {
 }
 
 void limpiarJuego() {
-    for (int i = 19; i < 43; ++i) {
+    for (int i = 18; i < 43; ++i) {
         label(" ", i, 14);
         label(" ", i, 16);
     }
@@ -445,5 +452,7 @@ void limpiarJuego() {
         label(" ", i, 22);
         label(" ", i, 23);
     }
+    label("             ", 19, 22);
+    label("                ", 19, 24);
 }
 

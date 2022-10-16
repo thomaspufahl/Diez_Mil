@@ -13,6 +13,7 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
     rlutil::cls();
     condicionCls = 1;
     int puntosXRonda;
+    int puntosAux=0;
     int dados[6];
     int mostrarCaso4;
     int jugada;
@@ -37,21 +38,24 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
         rlutil::locate(21, 7);
         std::cout << "JUEGA " << strupr(jugadores[0]);
         //puntaje
-        rlutil::locate(13, 9);
+        rlutil::locate(10, 9);
         std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
+        //puntaje x ronda
+        rlutil::locate(10, 10);
+        std::cout << char(4) << " " << "PUNTAJE DE LA RONDA: " << puntosAux << " PUNTOS";
         //lanzamientos
-        rlutil::locate(13, 10);
+        rlutil::locate(10, 12);
         std::cout << char(4) << " " << "LANZAMIENTOS: " << lanzamientos;
 
         ///TIRADA || JUEGO
         bool band = true;
 
-        int posX = 13;
-        int posY = 18;
+        int posX = 19;
+        int posY = 22;
 
         do {
-            label("TIRAR", 14, 18);
-            label("GUARDAR PUNTOS", 14, 20);
+            label("TIRAR DADOS", 21, 22);
+            label("GUARDAR PUNTOS", 21, 24);
 
             labelInt(175, posX, posY);
 
@@ -62,14 +66,14 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
 
             switch (key) {
                 case 14:
-                    punteroArriba(posX, posY, 175, 18, 2);
+                    punteroArriba(posX, posY, 175, 22, 2);
                     break;
                 case 15:
-                    punteroAbajo(posX, posY, 175, 20, 2);
+                    punteroAbajo(posX, posY, 175, 24, 2);
                     break;
                 case 1:
                     switch (posY) {
-                        case 18:
+                        case 22:
                             limpiarJuego();
                             mezclar();
                             guardarDados(dados, 6);
@@ -77,26 +81,52 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
                             lanzamientos++;
                             jugada = identificarJugada(dados, 6, puntosXRonda, mostrarCaso4);
                             mostrarJugada(jugada, mostrarCaso4);
-                            puntuacion[0]+=puntosXRonda;
+                            puntosAux+=puntosXRonda;
                             mostrarSumaPuntaje(puntosXRonda);
-                            rlutil::locate(13, 10);
-                            std::cout << char(4) << " " << "LANZAMIENTOS: " << lanzamientos;
-                            rlutil::msleep(1000);
-                            rlutil::locate(13, 9);
+
+
+                            rlutil::locate(10, 12);
+                            std::cout << char(4) << " " << "LANZAMIENTOS N" << char(248) << " " << lanzamientos;
+
+                            rlutil::locate(10, 9);
                             std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
+
+                            rlutil::msleep(750);
+                            rlutil::locate(10, 10);
+                            std::cout << char(4) << " " << "PUNTAJE DE LA RONDA: " << puntosAux << " PUNTOS";
+
                             if (puntosXRonda==0) {
-                                puntuacion[0]=0;
-                                rlutil::locate(13, 9);
-                                std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
+                                rlutil::locate(10, 10);
+                                std::cout << char(4) << " " << "                     " << puntosAux << "       ";
+                                puntosAux=0;
+                                rlutil::locate(10, 10);
+                                std::cout << char(4) << " " << "PUNTAJE DE LA RONDA: " << puntosAux << " PUNTOS";
+                                label("             ", 19, 22);
+                                label("                ", 19, 24);
                                 rlutil::msleep(500);
                                 label("PULSA UNA TECLA PARA CONTINUAR", 11, 22);
                                 rlutil::anykey();
                                 band=false;
                             }
+                            if (puntosXRonda==10000){
+                                puntuacion[0]=10000;
+                                label("ganaste la ronda con 10k", 11, 22);
+                                rlutil::anykey();
+                                band = false;
+                            }
                             break;
-                        case 20:
+                        case 24:
+                            if (puntuacion[0]+puntosAux>10000){
+                                label("TE PASASTE DE LOS 10.000", 11, 22);
+                                rlutil::anykey();
+                            } else {
+                                puntuacion[0]+=puntosAux;
+                            }
+                            puntosAux=0;
                             rlutil::msleep(500);
                             limpiarJuego();
+                            rlutil::locate(10, 9);
+                            std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
                             label("PULSA UNA TECLA PARA CONTINUAR", 11, 22);
                             rlutil::anykey();
                             band=false;
@@ -110,6 +140,7 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
         } while (band);
 
         if (puntuacion[0]==10000) {
+            ///ESTO DEBERIA SER UNA FUNCION
             rlutil::cls();
             rlutil::locate(8, 4);
             std::cout << "FIN DEL JUEGO";
@@ -117,5 +148,9 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
             return 0;
         }
     } while (rondas!=10);
+    rlutil::cls();
+    rlutil::locate(8, 4);
+    std::cout << "FIN DEL JUEGO";
+    rlutil::anykey();
     return 0;
 }

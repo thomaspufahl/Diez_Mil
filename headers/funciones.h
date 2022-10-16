@@ -88,6 +88,14 @@ void guardarDados(int vec[], int tam) {
         vec[i]=(1+rand()%6);
     }
 
+    /*
+    vec[0] =1;
+    vec[1] =1;
+    vec[2] =1;
+    vec[3] =1;
+    vec[4] =1;
+    vec[5] =1;
+*/
 }
 
 
