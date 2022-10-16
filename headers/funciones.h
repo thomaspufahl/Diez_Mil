@@ -2,6 +2,9 @@
 // Created by thoma on 14/10/2022.
 //
 
+#include <ctime>
+
+
 #ifndef DIEZ_MIL_FUNCIONES_H
 #define DIEZ_MIL_FUNCIONES_H
 
@@ -78,9 +81,9 @@ void antiCls(int &condicionCls) {
 }
 
 void guardarDados(int vec[], int tam) {
+    srand(time(nullptr));
     for (int i = 0; i < tam; ++i) {
-        vec[i]=rand()%6;
-        if (vec[i]==0) {vec[i]++;}
+        vec[i]=(1+rand()%6);
     }
 }
 
