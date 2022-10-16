@@ -12,6 +12,7 @@ void label(char* texto, int posX, int posY);
 void labelInt(int caracter, int posX, int posY);
 void bordeMenu();
 void bordePetUnJugador();
+void bordePetDosJugadores();
 void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[]);
 void recuadroRondas();
 void recuadroJuego();
@@ -102,6 +103,55 @@ void bordePetUnJugador() {
     rlutil::locate(68, 3);
     std::cout << (char)205;
 }
+void bordePetDosJugadores() {
+    /// verticales
+    //izq
+    for (int i = 4; i < 16; ++i) {
+        rlutil::locate(48, i);
+        std::cout << (char)186;
+    }
+    //der
+    for (int i = 4; i < 16; ++i) {
+        rlutil::locate(69, i);
+        std::cout << (char)186;
+    }
+    /// esquinas
+    // IZQ
+    //inf
+    rlutil::locate(48, 16);
+    std::cout << (char)200;
+    //sup
+    rlutil::locate(48, 3);
+    std::cout << (char)201;
+    // DER
+    //inf
+    rlutil::locate(69, 16);
+    std::cout << (char)188;
+    //sup
+    rlutil::locate(69, 3);
+    std::cout << (char)187;
+    /// horizontales
+    // IZQ
+    //inf
+    rlutil::locate(49, 16);
+    std::cout << (char)205;
+    //sup
+    rlutil::locate(49, 3);
+    std::cout << (char)205;
+    // DER
+    //inf
+    rlutil::locate(68, 16);
+    std::cout << (char)205;
+    //sup
+    rlutil::locate(68, 3);
+    std::cout << (char)205;
+    //MEDIO
+    for (int i = 49; i < 69; ++i) {
+        rlutil::locate(i, 10);
+        std::cout << (char)238;
+    }
+
+}
 
 void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[]) {
     rlutil::cls();
@@ -110,19 +160,26 @@ void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntua
     std::cout << "RONDA N" << char(248) << " " << rondas;
 
     rlutil::locate(49, 8);
-    std::cout << "PROXIMO TURNO: " << strupr(jugadores[0]);
+    if (rondas%2!=0) {
+        std::cout << "PROXIMO TURNO: " << strupr(jugadores[0]);
+    } else {
+        std::cout << "PROXIMO TURNO: " << strupr(jugadores[1]);
+    }
 
     rlutil::locate(46, 11);
     std::cout << "PUNTAJE DE " << strupr(jugadores[0]) << ": " << puntuacion[0] << " PUNTOS";
 
     if (cantidadPJ>1) {
         rlutil::locate(46, 12);
-        std::cout << "PUNTAJE DE " << strupr(jugadores[1]) << ": " << puntuacion[1];
+        std::cout << "PUNTAJE DE " << strupr(jugadores[1]) << ": " << puntuacion[1] << " PUNTOS";
         std::cout << std::endl;
     }
+
     rlutil::locate(3, 29);
     std::cout << "PULSA UNA TECLA PARA CONTINUAR...";
     rlutil::anykey();
+
+    //rlutil::msleep(1250);
 }
 
 void recuadroRondas() {

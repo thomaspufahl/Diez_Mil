@@ -67,7 +67,7 @@ int main() {
                         break;
                     case 7:
                         petNombre(jugadores, 2);
-                        dosJugadores(condicionCls, jugadores, puntaje, turno);
+                        dosJugadores(condicionCls, jugadores, 2, puntaje, turno);
                         break;
                     case 9:
                         //SALIR

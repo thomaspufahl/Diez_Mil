@@ -47,7 +47,11 @@ void punteroAbajo(int &posX, int &posY, int caracter, int limite, int salto) {
 /// 2
 void petNombre(char jugador[][35], int cantidad) {
     rlutil::cls();
-    bordePetUnJugador();
+    if (cantidad>1) {
+        bordePetDosJugadores();
+    } else {
+        bordePetUnJugador();
+    }
     for (int i = 0; i < cantidad; ++i) {
         if (i==1) {
             label("JUGADOR 2", 55, 11);

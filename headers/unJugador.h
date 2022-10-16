@@ -30,11 +30,11 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
         //CUERPO
         //jugador
         lineaVertical(46, 179);
-        rlutil::locate(20, 7);
+        rlutil::locate(21, 7);
         std::cout << "JUEGA " << strupr(jugadores[0]);
         //puntaje
-        rlutil::locate(10, 9);
-        std::cout << char(62) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
+        rlutil::locate(13, 9);
+        std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
 
         ///ESTILOS CON PROCESAMIENTOS
         //CUERPO
@@ -71,8 +71,8 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
 
         //update de label con el puntaje
         rlutil::msleep(1000);
-        rlutil::locate(10, 9);
-        std::cout << char(62) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
+        rlutil::locate(13, 9);
+        std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
 
         rlutil::msleep(500);
         label("PULSA UNA TECLA PARA CONTINUAR", 11, 22);
