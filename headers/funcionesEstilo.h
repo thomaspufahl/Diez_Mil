@@ -25,6 +25,8 @@ void mostrarSumaPuntaje(int puntaje);
 void cuadrado(int posX, int posY, int caracter);
 void limpiarCuadrado(int posX, int posY);
 void limpiarJuego();
+void finalRondas();
+void finalSexteto();
 
 
 
@@ -456,3 +458,13 @@ void limpiarJuego() {
     label("                ", 19, 24);
 }
 
+void finalRondas() {
+    rlutil::cls();
+    rlutil::locate(8, 4);
+    std::cout << "FIN DEL JUEGO";
+    rlutil::anykey();
+}
+
+void finalSexteto() {
+
+}

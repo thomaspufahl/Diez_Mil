@@ -84,7 +84,6 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
                             puntosAux+=puntosXRonda;
                             mostrarSumaPuntaje(puntosXRonda);
 
-
                             rlutil::locate(10, 12);
                             std::cout << char(4) << " " << "LANZAMIENTOS N" << char(248) << " " << lanzamientos;
 
@@ -148,9 +147,6 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
             return 0;
         }
     } while (rondas!=10);
-    rlutil::cls();
-    rlutil::locate(8, 4);
-    std::cout << "FIN DEL JUEGO";
-    rlutil::anykey();
+    finalRondas();
     return 0;
 }
