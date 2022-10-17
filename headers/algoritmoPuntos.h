@@ -90,49 +90,29 @@ int identificarJugada(int vec[], int tam, int &puntos, int &varCaso4) {
         puntos+=1000;
         return 3;
     }
-    ///CHEQUEAR cuando tiene 3 de 4 y tengo 2 de 2 [1, 4, 4, 4, 2, 2]
-    //4. +(MAX)600
-    int repetidos[2] = {0, 0};
-    bool band4 = true;
-    int acu4 = 0;
-    int cont4 = 0;
-    int r4;
-    int max4 = 0;
-    for (int i = 0; i < tam; ++i) {
-        r4=0;
-        for (int j = 0; j < tam; ++j) {
-            if (vec[i]==vec[j]) {
-                r4++;
 
+    //4. +(MAX)600
+    int cont4 = 0;
+    int max4;
+    bool band4 = true;
+    for (int i = 0; i < tam; ++i) {
+        for (int j = 0; j < tam; ++j) {
+            if (vec[i]==vec[j] && i!=j) {
+                cont4++;
             }
-        }
-        if (r4>1) {
-            cont4++;
-            acu4+=r4-cont4;
-            /*
-            rlutil::locate(1, 1);
-            std::cout << acu4;
-            rlutil::anykey();
-             */
-            if (acu4>=3) {
-                acu4=0;
+            if (cont4>=3) {
                 if (band4) {
-                    repetidos[0] = vec[i];
-                    band4=false;
-                } else if (repetidos[0]!=vec[i]){
-                    repetidos[1] = vec[i];
+                    max4=i;
+                    band4= false;
+                } else if (vec[i]>vec[max4]) {
+                    max4=i;
                 }
             }
         }
     }
-
-    if (repetidos[max4]>repetidos[1]) {
-        puntos+=(repetidos[max4]*100);
-        varCaso4 = repetidos[max4];
-        return 4;
-    } else if (repetidos[max4]<repetidos[1]) {
-        puntos+=(repetidos[1]*100);
-        varCaso4 = repetidos[1];
+    if (cont4>=3) {
+        puntos+=vec[max4]*100;
+        varCaso4=vec[max4];
         return 4;
     }
 
