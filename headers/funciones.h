@@ -16,7 +16,7 @@ void punteroArriba (int &posX, int &posY, int caracter, int limite, int salto);
 void punteroAbajo(int &posX, int &posY, int caracter, int limite, int salto);
 
 ///2. PETICIONES
-void petNombre(char jugador[][35], int cantidad);
+void petNombre(char jugador[][35], char apellidos[][35], int cantidad);
 
 ///3. PROCESAMIENTOS
 void vecZero (int vec[], int tam);
@@ -42,27 +42,25 @@ void punteroAbajo(int &posX, int &posY, int caracter, int limite, int salto) {
 //-----------
 
 /// 2
-void petNombre(char jugador[][35], int cantidad) {
+void petNombre(char jugador[][35], char apellidos[][35], int cantidad) {
     rlutil::cls();
-    if (cantidad>1) {
-        bordePetDosJugadores();
-    } else {
-        bordePetUnJugador();
-    }
+    bordePetJugador();
     for (int i = 0; i < cantidad; ++i) {
-        if (i==1) {
-            label("JUGADOR 2", 55, 11);
-            labelInt(175, 52, 13);
-            rlutil::locate(55,13);
-            rlutil::setChar(33);
-            std::cin >> jugador[i];
-        } else {
-            label("JUGADOR 1", 55, 6);
-            labelInt(175, 52, 8);
-            rlutil::locate(55,8);
-            rlutil::setChar(33);
-            std::cin >> jugador[i];
-        }
+        rlutil::cls();
+        bordePetJugador();
+        rlutil::locate(55, 6);
+        std::cout << "JUGADOR " << i+1;
+        //label("JUGADOR 1", 55, 6);
+        label("Nombre: ", 53, 8);
+        labelInt(175, 52, 9);
+        rlutil::locate(53,9);
+        rlutil::setChar(33);
+        std::cin >> jugador[i];
+        label("Apellido: ", 53, 11);
+        labelInt(175, 52, 12);
+        rlutil::locate(53,12);
+        rlutil::setChar(33);
+        std::cin >> apellidos[i];
     }
 }
 //-----------
@@ -87,6 +85,5 @@ void guardarDados(int vec[], int tam) {
         vec[i]=(1+rand()%6);
     }
 }
-
 
 //-----------

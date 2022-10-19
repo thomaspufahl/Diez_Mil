@@ -1,7 +1,7 @@
 #include "../headers/rlutil.h"
-#include "../headers/algoritmoPuntos.h"
 #include "../headers/funcionesEstilo.h"
 #include "../headers/funciones.h"
+#include "../headers/algoritmoPuntos.h"
 #include "../headers/dosJugadores.h"
 #include "../headers/unJugador.h"
 
@@ -24,6 +24,7 @@ int main() {
 
     //DATOS DE JUGADORES
     char jugadores[2][35];
+    char apellidos[2][35];
     int puntaje[2];
     int ronda;
     //inicializa el puntaje en 0
@@ -63,12 +64,12 @@ int main() {
             case 1:
                 switch (posY) {
                     case 5:
-                        petNombre(jugadores, 1);
-                        unJugador(condicionCls, jugadores, 1, puntaje, ronda);
+                        petNombre(jugadores, apellidos, 1);
+                        unJugador(condicionCls, jugadores, apellidos, 1, puntaje, ronda);
                         break;
                     case 7:
-                        petNombre(jugadores, 2);
-                        dosJugadores(condicionCls, jugadores, 2, puntaje, ronda);
+                        petNombre(jugadores, apellidos, 2);
+                        dosJugadores(condicionCls, jugadores, apellidos, 2, puntaje, ronda);
                         break;
                     case 9:
                         //SALIR

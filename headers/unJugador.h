@@ -9,7 +9,7 @@
 
 
 
-int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntuacion[], int &rondas) {
+int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int cantidadPJ, int puntuacion[], int &rondas) {
     rlutil::cls();
     condicionCls = 1;
     int puntosXRonda;
@@ -90,11 +90,13 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
                             rlutil::locate(10, 9);
                             std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
 
-                            rlutil::msleep(750);
-                            rlutil::locate(10, 10);
-                            std::cout << char(4) << " " << "PUNTAJE DE LA RONDA: " << puntosAux << " PUNTOS";
+                            if (jugada!=7) {
+                                rlutil::msleep(750);
+                                rlutil::locate(10, 10);
+                                std::cout << char(4) << " " << "PUNTAJE DE LA RONDA: " << puntosAux << " PUNTOS";
+                            }
 
-                            if (puntosXRonda==0) {
+                            if (jugada==0) {
                                 rlutil::locate(10, 10);
                                 std::cout << char(4) << " " << "                     " << puntosAux << "       ";
                                 puntosAux=0;
@@ -103,13 +105,13 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
                                 label("             ", 19, 22);
                                 label("                ", 19, 24);
                                 rlutil::msleep(500);
-                                label("PULSA UNA TECLA PARA CONTINUAR", 11, 22);
+                                label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
                                 rlutil::anykey();
                                 band=false;
                             }
-                            if (puntosXRonda==10000){
-                                puntuacion[0]=10000;
-                                label("ganaste la ronda con 10k", 11, 22);
+                            if (jugada==7){
+                                //significa que saque un sexteto
+                                label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
                                 rlutil::anykey();
                                 band = false;
                             }
@@ -126,7 +128,7 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
                             limpiarJuego();
                             rlutil::locate(10, 9);
                             std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
-                            label("PULSA UNA TECLA PARA CONTINUAR", 11, 22);
+                            label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
                             rlutil::anykey();
                             band=false;
                             break;
@@ -138,15 +140,19 @@ int unJugador(int &condicionCls, char jugadores[][35], int cantidadPJ, int puntu
             }
         } while (band);
 
+        ///PANTALLAS DE FIN DE JUEGO
+        if (jugada==7) {
+            //pantalla final de sexteto
+            pantallaFinal("GANADOR POR COMBINACION GANADORA: SEXTETO", 40, 10, jugadores, apellidos, puntuacion, rondas);
+            return 0;
+        }
         if (puntuacion[0]==10000) {
-            ///ESTO DEBERIA SER UNA FUNCION
-            rlutil::cls();
-            rlutil::locate(8, 4);
-            std::cout << "FIN DEL JUEGO";
-            rlutil::anykey();
+            //pantalla final de ganador basico
+            pantallaFinal("FINALIZACION POR LLEGAR A 10.000 PUNTOS", 52, 10, jugadores, apellidos, puntuacion, rondas);
             return 0;
         }
     } while (rondas!=10);
-    finalRondas();
+    //pantalla final de ganador por puntos
+    pantallaFinal("FINALIZACION DE RONDAS, GANADOR POR PUNTAJE", 40, 10, jugadores, apellidos, puntuacion, rondas);
     return 0;
 }

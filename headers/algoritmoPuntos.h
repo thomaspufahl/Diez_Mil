@@ -92,27 +92,34 @@ int identificarJugada(int vec[], int tam, int &puntos, int &varCaso4) {
     }
 
     //4. +(MAX)600
-    int cont4 = 0;
-    int max4;
-    bool band4 = true;
+    int max4=0;
+    int repetidos[6];
+    vecZero(repetidos, 6);
+    int band4 = false;
+    int valor4;
     for (int i = 0; i < tam; ++i) {
         for (int j = 0; j < tam; ++j) {
             if (vec[i]==vec[j] && i!=j) {
-                cont4++;
-            }
-            if (cont4>=3) {
-                if (band4) {
-                    max4=i;
-                    band4= false;
-                } else if (vec[i]>vec[max4]) {
-                    max4=i;
-                }
+                repetidos[vec[i]-1]++;
             }
         }
     }
-    if (cont4>=3) {
-        puntos+=vec[max4]*100;
-        varCaso4=vec[max4];
+    for (int i = 0; i < tam; ++i) {
+        if (repetidos[i]>=3) {
+            band4 = true;
+            if (i>max4) {
+                max4=i;
+            }
+        }
+    }
+    if (band4) {
+        for (int i = 0; i < tam; ++i) {
+            if (max4+1==vec[i]) {
+                valor4=vec[i];
+            }
+        }
+        puntos+=valor4*100;
+        varCaso4=valor4;
         return 4;
     }
 
@@ -145,7 +152,6 @@ int identificarJugada(int vec[], int tam, int &puntos, int &varCaso4) {
         puntos+=100;
         return 2;
     }
-
 
     return 0;
 }

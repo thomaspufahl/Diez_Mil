@@ -11,8 +11,7 @@
 void label(char* texto, int posX, int posY);
 void labelInt(int caracter, int posX, int posY);
 void bordeMenu();
-void bordePetUnJugador();
-void bordePetDosJugadores();
+void bordePetJugador();
 void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[]);
 void recuadroRondas();
 void recuadroJuego();
@@ -25,8 +24,8 @@ void mostrarSumaPuntaje(int puntaje);
 void cuadrado(int posX, int posY, int caracter);
 void limpiarCuadrado(int posX, int posY);
 void limpiarJuego();
-void finalRondas();
-void finalSexteto();
+void pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char apellidos[][35], int puntuacion[], int rondas);
+
 
 
 
@@ -63,29 +62,29 @@ void bordeMenu() {
         std::cout << (char)186;
     }
 }
-void bordePetUnJugador() {
+void bordePetJugador() {
     /// verticales
     //izq
-    for (int i = 4; i < 12; ++i) {
+    for (int i = 4; i < 15; ++i) {
         rlutil::locate(48, i);
         std::cout << (char)186;
     }
     //der
-    for (int i = 4; i < 12; ++i) {
+    for (int i = 4; i < 15; ++i) {
         rlutil::locate(69, i);
         std::cout << (char)186;
     }
     /// esquinas
     // IZQ
     //inf
-    rlutil::locate(48, 12);
+    rlutil::locate(48, 15);
     std::cout << (char)200;
     //sup
     rlutil::locate(48, 3);
     std::cout << (char)201;
     // DER
     //inf
-    rlutil::locate(69, 12);
+    rlutil::locate(69, 15);
     std::cout << (char)188;
     //sup
     rlutil::locate(69, 3);
@@ -93,67 +92,18 @@ void bordePetUnJugador() {
     /// horizontales
     // IZQ
     //inf
-    rlutil::locate(49, 12);
+    rlutil::locate(49, 15);
     std::cout << (char)205;
     //sup
     rlutil::locate(49, 3);
     std::cout << (char)205;
     // DER
     //inf
-    rlutil::locate(68, 12);
+    rlutil::locate(68, 15);
     std::cout << (char)205;
     //sup
     rlutil::locate(68, 3);
     std::cout << (char)205;
-}
-void bordePetDosJugadores() {
-    /// verticales
-    //izq
-    for (int i = 4; i < 16; ++i) {
-        rlutil::locate(48, i);
-        std::cout << (char)186;
-    }
-    //der
-    for (int i = 4; i < 16; ++i) {
-        rlutil::locate(69, i);
-        std::cout << (char)186;
-    }
-    /// esquinas
-    // IZQ
-    //inf
-    rlutil::locate(48, 16);
-    std::cout << (char)200;
-    //sup
-    rlutil::locate(48, 3);
-    std::cout << (char)201;
-    // DER
-    //inf
-    rlutil::locate(69, 16);
-    std::cout << (char)188;
-    //sup
-    rlutil::locate(69, 3);
-    std::cout << (char)187;
-    /// horizontales
-    // IZQ
-    //inf
-    rlutil::locate(49, 16);
-    std::cout << (char)205;
-    //sup
-    rlutil::locate(49, 3);
-    std::cout << (char)205;
-    // DER
-    //inf
-    rlutil::locate(68, 16);
-    std::cout << (char)205;
-    //sup
-    rlutil::locate(68, 3);
-    std::cout << (char)205;
-    //MEDIO
-    for (int i = 49; i < 69; ++i) {
-        rlutil::locate(i, 10);
-        std::cout << (char)238;
-    }
-
 }
 
 void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[]) {
@@ -369,29 +319,29 @@ void mostrarDados(const int vec[], int tam) {
 void mostrarJugada(int jugada, int varCaso4) {
     switch (jugada) {
         case 0:
-            label("JUGADA PERDEDORA:(", 19, 14);
+            label("JUGADA PERDEDORA:(", 19, 16);
             break;
         case 1:
-            label("JUEGO DE 1!", 21, 14);
+            label("JUEGO DE 1!", 21, 16);
             break;
         case 2:
-            label("JUEGO DE 5!", 21, 14);
+            label("JUEGO DE 5!", 21, 16);
             break;
         case 3:
-            label("TRIO DE 1!", 21, 14);
+            label("TRIO DE 1!", 21, 16);
             break;
         case 4:
-            rlutil::locate(22, 14);
+            rlutil::locate(22, 16);
             std::cout << "TRIO " << varCaso4 << "++";
             break;
         case 5:
-            label("TRIO 1 AMPLIADO!", 18, 14);
+            label("TRIO 1 AMPLIADO!", 18, 16);
             break;
         case 6:
-            label("ESCALERA LARGA!", 19, 14);
+            label("ESCALERA LARGA!", 19, 16);
             break;
         case 7:
-            label("SEXTETO!", 23, 14);
+            label("SEXTETO!", 23, 16);
             break;
         default:
             break;
@@ -400,12 +350,18 @@ void mostrarJugada(int jugada, int varCaso4) {
 
 void mostrarSumaPuntaje(int puntaje) {
     if (puntaje==10000) {
-        label("+      PUNTOS", 20, 16);
-        rlutil::locate(21, 16);
+        label("GANASTE LA PARTIDA", 18, 18);
+    } else if (puntaje>=1000){
+        label("+     PUNTOS", 20, 18);
+        rlutil::locate(21, 18);
+        std::cout << puntaje;
+    } else if (puntaje>=100){
+        label("+    PUNTOS", 20, 18);
+        rlutil::locate(21, 18);
         std::cout << puntaje;
     } else {
-        label("+     PUNTOS", 20, 16);
-        rlutil::locate(21, 16);
+        label("+   PUNTOS", 21, 18);
+        rlutil::locate(21, 18);
         std::cout << puntaje;
     }
 
@@ -439,8 +395,8 @@ void limpiarCuadrado(int posX, int posY) {
 
 void limpiarJuego() {
     for (int i = 18; i < 43; ++i) {
-        label(" ", i, 14);
         label(" ", i, 16);
+        label(" ", i, 18);
     }
     for (int i = 48; i < 110; ++i) {
         label(" ", i, 11);
@@ -458,13 +414,23 @@ void limpiarJuego() {
     label("                ", 19, 24);
 }
 
-void finalRondas() {
+void pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char apellidos[][35], int puntuacion[], int rondas) {
     rlutil::cls();
-    rlutil::locate(8, 4);
-    std::cout << "FIN DEL JUEGO";
+    recuadroJuego();
+    label("FIN DEL JUEGO", 55, 6);
+
+    rlutil::locate(40, 12);
+    std::cout << "EL GANADOR FUE: " << jugadores[0] << " " << strupr(apellidos[0]);
+
+    rlutil::locate(40, 14);
+    std::cout << "RONDA: " << rondas << "/10";
+
+    rlutil::locate(posX, posY);
+    std::cout << razon;
+
+    if (rondas==10) {
+        rlutil::locate(40, posY+6);
+        std::cout << "PUNTAJE: " << puntuacion[0];
+    }
     rlutil::anykey();
-}
-
-void finalSexteto() {
-
 }
