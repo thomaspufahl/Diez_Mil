@@ -111,6 +111,7 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
                             }
                             if (jugada==7){
                                 //significa que saque un sexteto
+                                puntuacion[0]=puntosXRonda;
                                 label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
                                 rlutil::anykey();
                                 band = false;
@@ -143,16 +144,20 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
         ///PANTALLAS DE FIN DE JUEGO
         if (jugada==7) {
             //pantalla final de sexteto
-            pantallaFinal("GANADOR POR COMBINACION GANADORA: SEXTETO", 40, 10, jugadores, apellidos, puntuacion, rondas);
+            pantallaFinal("GANADOR POR COMBINACION GANADORA: SEXTETO", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
+            rlutil::anykey();
             return 0;
         }
         if (puntuacion[0]==10000) {
             //pantalla final de ganador basico
-            pantallaFinal("FINALIZACION POR LLEGAR A 10.000 PUNTOS", 52, 10, jugadores, apellidos, puntuacion, rondas);
+            pantallaFinal("FINALIZACION POR LLEGAR A 10.000 PUNTOS", 52, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
+            rlutil::anykey();
             return 0;
         }
     } while (rondas!=10);
     //pantalla final de ganador por puntos
-    pantallaFinal("FINALIZACION DE RONDAS, GANADOR POR PUNTAJE", 40, 10, jugadores, apellidos, puntuacion, rondas);
+    rondas++;
+    pantallaFinal("FINALIZACION DE RONDAS, GANADOR POR PUNTAJE", 40, 10, jugadores, apellidos, 1, puntuacion, rondas,true, jugada);
+    rlutil::anykey();
     return 0;
 }
