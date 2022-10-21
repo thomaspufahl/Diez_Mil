@@ -28,7 +28,6 @@ int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char ap
 
 
 
-
 /// 4
 void label(char* texto, int posX, int posY) {
     rlutil::locate(posX, posY);
@@ -113,10 +112,10 @@ void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntua
     std::cout << "RONDA N" << char(248) << " " << rondas;
 
     rlutil::locate(49, 8);
-    if (rondas%2!=0) {
-        std::cout << "PROXIMO TURNO: " << strupr(jugadores[0]);
-    } else {
+    if (rondas%2==0 && cantidadPJ>1) {
         std::cout << "PROXIMO TURNO: " << strupr(jugadores[1]);
+    } else {
+        std::cout << "PROXIMO TURNO: " << strupr(jugadores[0]);
     }
 
 
@@ -132,8 +131,6 @@ void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntua
     rlutil::locate(3, 29);
     std::cout << "PULSA UNA TECLA PARA CONTINUAR...";
     rlutil::anykey();
-
-    //rlutil::msleep(1250);
 }
 
 void recuadroRondas() {
@@ -360,9 +357,9 @@ void mostrarSumaPuntaje(int puntaje) {
         label("+    PUNTOS", 20, 18);
         rlutil::locate(21, 18);
         std::cout << puntaje;
-    } else {
+    } else if (puntaje!=0){
         label("+   PUNTOS", 21, 18);
-        rlutil::locate(21, 18);
+        rlutil::locate(22, 18);
         std::cout << puntaje;
     }
 
@@ -464,6 +461,5 @@ int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char ap
     }
 
     rlutil::anykey();
-    return 0;
+    return max;
 }
-

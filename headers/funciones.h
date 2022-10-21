@@ -22,6 +22,7 @@ void petNombre(char jugador[][35], char apellidos[][35], int cantidad);
 void vecZero (int vec[], int tam);
 void antiCls(int &condicionCls);
 void guardarDados(int vec[], int tam);
+void pasoDatosHG(int puntuacion[], int jugada, int rondas, int max, char jugadores[][35], char apellidos[][35], bool &cGeneralHG, char* &jugadorHG, char* &apellidoHG, int &rondasHG);
 
 
 /// 1
@@ -50,7 +51,6 @@ void petNombre(char jugador[][35], char apellidos[][35], int cantidad) {
         bordePetJugador();
         rlutil::locate(55, 6);
         std::cout << "JUGADOR " << i+1;
-        //label("JUGADOR 1", 55, 6);
         label("Nombre: ", 53, 8);
         labelInt(175, 52, 9);
         rlutil::locate(53,9);
@@ -90,8 +90,22 @@ void guardarDados(int vec[], int tam) {
     vec[1]=1;
     vec[2]=1;
     vec[3]=1;
-    vec[4]=1;
-    vec[5]=1;
+    vec[4]=4;
+    vec[5]=5;
 }
 
+void pasoDatosHG(int puntuacion[], int jugada, int rondas, int max, char jugadores[][35], char apellidos[][35], bool &cGeneralHG, char* &jugadorHG, char* &apellidoHG, int &rondasHG) {
+    if (puntuacion[max]==10000 && jugada!=7) {
+        if (!cGeneralHG) {
+            jugadorHG = jugadores[max];
+            apellidoHG = apellidos[max];
+            rondasHG = rondas;
+            cGeneralHG = true;
+        } else if (rondas<rondasHG){
+            jugadorHG = jugadores[max];
+            apellidoHG = apellidos[max];
+            rondasHG = rondas;
+        }
+    }
+}
 //-----------

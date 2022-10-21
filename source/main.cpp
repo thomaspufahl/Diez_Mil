@@ -4,6 +4,7 @@
 #include "../headers/algoritmoPuntos.h"
 #include "../headers/dosJugadores.h"
 #include "../headers/unJugador.h"
+#include "../headers/highscore.h"
 
 
 int main() {
@@ -15,7 +16,7 @@ int main() {
 
     //PARA MOV. PUNTERO
     int posY_Inicial = 5;
-    int posY_Final = 9;
+    int posY_Final = 11;
     int salto = 2;
 
     //BANDERA DE CLS
@@ -36,6 +37,12 @@ int main() {
     rlutil::cls();
     bordeMenu();
 
+    //HG
+    bool cGeneralHG = false;
+    char* jugadorHG;
+    char* apellidoHG;
+    int rondasHG;
+
     while (true) {
         rlutil::hidecursor();
         antiCls(condicionCls);
@@ -45,7 +52,8 @@ int main() {
         bordeMenu();
         label("UN JUGADOR", 10, 5);
         label("DOS JUGADORES", 10, 7);
-        label("SALIR", 10, 9);
+        label("PUNTUACION MAS ALTA", 10, 9);
+        label("SALIR", 10, 11);
 
         labelInt(caracter, posX, posY);
 
@@ -65,13 +73,16 @@ int main() {
                 switch (posY) {
                     case 5:
                         petNombre(jugadores, apellidos, 1);
-                        unJugador(condicionCls, jugadores, apellidos, 1, puntaje, ronda);
+                        unJugador(condicionCls, jugadores, apellidos, 1, puntaje, ronda, jugadorHG, apellidoHG, rondasHG, cGeneralHG);
                         break;
                     case 7:
                         petNombre(jugadores, apellidos, 2);
-                        dosJugadores(condicionCls, jugadores, apellidos, 2, puntaje, ronda);
+                        dosJugadores(condicionCls, jugadores, apellidos, 2, puntaje, ronda, jugadorHG, apellidoHG, rondasHG, cGeneralHG);
                         break;
                     case 9:
+                        mostrarPuntuacion(condicionCls, jugadorHG, apellidoHG, rondasHG, cGeneralHG);
+                        break;
+                    case 11:
                         //SALIR
                         return 0;
                     default:
