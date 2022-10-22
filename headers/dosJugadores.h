@@ -23,10 +23,10 @@ int dosJugadores(int &condicionCls, char jugadores[][35], char apellidos[][35], 
     do {
         TURNO = 0;
         cTurno=0;
-        lanzamientos=0;
         rondas++;
 
         do {
+            lanzamientos=0;
             pantallaTurno(rondas, jugadores, cantidadPJ, puntuacion, TURNO);
             rlutil::cls();
 
