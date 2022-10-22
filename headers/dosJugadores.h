@@ -6,7 +6,7 @@
 #define DIEZ_MIL_DOSJUGADORES_H
 
 #endif //DIEZ_MIL_DOSJUGADORES_H
-
+//devcomm
 int dosJugadores(int &condicionCls, char jugadores[][35], char apellidos[][35], int cantidadPJ, int puntuacion[], int &rondas) {
     rlutil::cls();
     condicionCls = 1;
