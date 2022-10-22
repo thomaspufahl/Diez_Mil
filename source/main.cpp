@@ -43,6 +43,7 @@ int main() {
     bool bVisualHg = false;
     int ganadorHg;
     int ganadorHgMin;
+    //rondas
     int rondasMin;
     //nombre jugador
     int tam=1;
