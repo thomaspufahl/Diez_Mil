@@ -22,7 +22,7 @@ void petNombre(char jugador[][35], char apellidos[][35], int cantidad);
 void vecZero (int vec[], int tam);
 void antiCls(int &condicionCls);
 void guardarDados(int vec[], int tam);
-void cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][35], int* &punteroTam, char* jugadorMinCpy, int &rondasMin, int &ronda, bool &bVisualHg, int* &punteroTam2, char* apellidoMinCpy, char apellidos[][35]);
+int cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][35], int* &punteroTam, char* jugadorMinCpy, int &rondasMin, int &ronda, bool &bVisualHg, int* &punteroTam2, char* apellidoMinCpy, char apellidos[][35]);
 
 /// 1
 void punteroArriba (int &posX, int &posY, int caracter, int limite, int salto){
@@ -88,12 +88,18 @@ void guardarDados(int vec[], int tam) {
     vec[0]=1;
     vec[1]=1;
     vec[2]=1;
-    vec[3]=1;
-    vec[4]=4;
-    vec[5]=5;
+    vec[3]=4;
+    vec[4]=5;
+    vec[5]=1;
 }
 
-void cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][35], int* &punteroTam, char* jugadorMinCpy, int &rondasMin, int &ronda, bool &bVisualHg, int* &punteroTam2, char* apellidoMinCpy, char apellidos[][35]) {
+int cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][35], int* &punteroTam, char* jugadorMinCpy, int &rondasMin, int &ronda, bool &bVisualHg, int* &punteroTam2, char* apellidoMinCpy, char apellidos[][35]) {
+    if (ganadorHg==2) {
+        *jugadorMinCpy = *" ";
+        *apellidoMinCpy = *" ";
+       return 0;
+    }
+
     if (bandHg) {
         ganadorHgMin = ganadorHg;
         //nombre
@@ -109,7 +115,7 @@ void cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[]
         strcpy(jugadorMinCpy, jugadorMin);
         //apellido
         int x = 0;
-        while (jugadores[ganadorHgMin][x]!=0) {
+        while (apellidos[ganadorHgMin][x]!=0) {
             x++;
         }
         char apellidoMin[x+1];
@@ -138,18 +144,19 @@ void cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[]
         //-
         //apellido
         int x = 0;
-        while (jugadores[ganadorHgMin][x]!=0) {
+        while (apellidos[ganadorHgMin][x]!=0) {
             x++;
         }
         char apellidoMin[x+1];
         for (int y = 0; y < x+1; ++y) {
-            apellidoMin[y] = jugadores[ganadorHgMin][y];
+            apellidoMin[y] = apellidos[ganadorHgMin][y];
         }
         *punteroTam2 = x;
         strcpy(apellidoMinCpy, apellidoMin);
         //-
         rondasMin = ronda;
     }
+    return 0;
 }
 
 //-----------

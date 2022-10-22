@@ -19,10 +19,11 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
     int jugada;
     int lanzamientos;
     int ganador;
+    int TURNO = 0;
     do {
         lanzamientos=0;
         rondas++;
-        pantallaTurno(rondas, jugadores, cantidadPJ, puntuacion);
+        pantallaTurno(rondas, jugadores, cantidadPJ, puntuacion, TURNO);
         rlutil::cls();
 
         ///ESTILOS

@@ -12,7 +12,7 @@ void label(char* texto, int posX, int posY);
 void labelInt(int caracter, int posX, int posY);
 void bordeMenu();
 void bordePetJugador();
-void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[]);
+void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[], int &turno);
 void recuadroRondas();
 void recuadroJuego();
 void lineaHorizontal(int posY, int caracter);
@@ -105,19 +105,14 @@ void bordePetJugador() {
     std::cout << (char)205;
 }
 
-void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[]) {
+void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[], int &turno) {
     rlutil::cls();
     recuadroRondas();
     rlutil::locate(54, 6);
     std::cout << "RONDA N" << char(248) << " " << rondas;
 
     rlutil::locate(49, 8);
-    if (rondas%2==0 && cantidadPJ>1) {
-        std::cout << "PROXIMO TURNO: " << strupr(jugadores[1]);
-    } else {
-        std::cout << "PROXIMO TURNO: " << strupr(jugadores[0]);
-    }
-
+    std::cout << "PROXIMO TURNO: " << strupr(jugadores[turno]);
 
     rlutil::locate(46, 11);
     std::cout << "PUNTAJE DE " << strupr(jugadores[0]) << ": " << puntuacion[0] << " PUNTOS";
@@ -413,8 +408,8 @@ void limpiarJuego() {
 }
 
 int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char apellidos[][35], int cantidad, int puntuacion[], int rondas, bool ganador, int jugada) {
-    //GANADOR TRUE = PJ1
-    //GANADOR FALSE = PJ2
+    //GANADOR TRUE PARA MODO UN JUGADOR
+    //GANADOR FALSE PARA MODO DOS JUGADORES
     rlutil::cls();
     recuadroJuego();
     label("FIN DEL JUEGO", 55, 6);
@@ -442,7 +437,7 @@ int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char ap
             std::cout << "PUNTAJE DE " << jugadores[1] << ": " << puntuacion[1];
         }
         rlutil::anykey();
-        return 0;
+        return 2;
     }
 
     rlutil::locate(40, 12);
