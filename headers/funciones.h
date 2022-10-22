@@ -22,7 +22,6 @@ void petNombre(char jugador[][35], char apellidos[][35], int cantidad);
 void vecZero (int vec[], int tam);
 void antiCls(int &condicionCls);
 void guardarDados(int vec[], int tam);
-void pasoDatosHG(int puntuacion[], int jugada, int rondas, int max, char jugadores[][35], char apellidos[][35], bool &cGeneralHG, char* &jugadorHG, char* &apellidoHG, int &rondasHG);
 
 
 /// 1
@@ -94,18 +93,4 @@ void guardarDados(int vec[], int tam) {
     vec[5]=5;
 }
 
-void pasoDatosHG(int puntuacion[], int jugada, int rondas, int max, char jugadores[][35], char apellidos[][35], bool &cGeneralHG, char* &jugadorHG, char* &apellidoHG, int &rondasHG) {
-    if (puntuacion[max]==10000 && jugada!=7) {
-        if (!cGeneralHG) {
-            jugadorHG = jugadores[max];
-            apellidoHG = apellidos[max];
-            rondasHG = rondas;
-            cGeneralHG = true;
-        } else if (rondas<rondasHG){
-            jugadorHG = jugadores[max];
-            apellidoHG = apellidos[max];
-            rondasHG = rondas;
-        }
-    }
-}
 //-----------

@@ -9,7 +9,7 @@
 
 
 
-int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int cantidadPJ, int puntuacion[], int &rondas, char* &jugadorHG, char* &apellidoHG, int &rondasHG, bool &cGeneralHG) {
+int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int cantidadPJ, int puntuacion[], int &rondas) {
     rlutil::cls();
     condicionCls = 1;
     int puntosXRonda;
@@ -18,7 +18,7 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
     int mostrarCaso4;
     int jugada;
     int lanzamientos;
-    int max;
+    int ganador;
     do {
         lanzamientos=0;
         rondas++;
@@ -146,23 +146,20 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
         ///PANTALLAS DE FIN DE JUEGO
         if (jugada==7) {
             //pantalla final de sexteto
-            max = pantallaFinal("GANADOR POR COMBINACION GANADORA: SEXTETO", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
+            ganador = pantallaFinal("GANADOR POR COMBINACION GANADORA: SEXTETO", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
             rlutil::anykey();
-            pasoDatosHG(puntuacion, jugada, rondas, max, jugadores, apellidos, cGeneralHG, jugadorHG, apellidoHG, rondasHG);
-            return 0;
+            return ganador;
         }
         if (puntuacion[0]==10000) {
             //pantalla final de ganador basico
-            max = pantallaFinal("FINALIZACION POR LLEGAR A 10.000 PUNTOS", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
+            ganador = pantallaFinal("FINALIZACION POR LLEGAR A 10.000 PUNTOS", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
             rlutil::anykey();
-            pasoDatosHG(puntuacion, jugada, rondas, max, jugadores, apellidos, cGeneralHG, jugadorHG, apellidoHG, rondasHG);
-            return 0;
+            return ganador;
         }
     } while (rondas!=10);
     //pantalla final de ganador por puntos
     rondas++;
-    max = pantallaFinal("FINALIZACION DE RONDAS, GANADOR POR PUNTAJE", 40, 10, jugadores, apellidos, 1, puntuacion, rondas,true, jugada);
+    ganador = pantallaFinal("FINALIZACION DE RONDAS, GANADOR POR PUNTAJE", 40, 10, jugadores, apellidos, 1, puntuacion, rondas,true, jugada);
     rlutil::anykey();
-    pasoDatosHG(puntuacion, jugada, rondas, max, jugadores, apellidos, cGeneralHG, jugadorHG, apellidoHG, rondasHG);
-    return 0;
+    return ganador;
 }

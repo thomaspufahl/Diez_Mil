@@ -38,13 +38,23 @@ int main() {
     bordeMenu();
 
     //HG
+    bool band = true;
     bool cGeneralHG = false;
-    char* jugadorHG;
-    char* apellidoHG;
-    int rondasHG;
+    int ganadorHG;
+    int ganadorHGMin;
+    int rondasMin;
+    int tam=1;
+    int *punteroTam = &tam;
+    char jugadorMin2[tam];
+    /*
+    int tam2=1;
+    int *punteroTam2 = &tam2;
+    char apellidoMin2[tam2];
+    */
 
     while (true) {
         rlutil::hidecursor();
+
         antiCls(condicionCls);
         ronda=0;
         vecZero(puntaje, 2);
@@ -73,14 +83,71 @@ int main() {
                 switch (posY) {
                     case 5:
                         petNombre(jugadores, apellidos, 1);
-                        unJugador(condicionCls, jugadores, apellidos, 1, puntaje, ronda, jugadorHG, apellidoHG, rondasHG, cGeneralHG);
+                        ganadorHG = unJugador(condicionCls, jugadores, apellidos, 1, puntaje, ronda);
+                        if (band) {
+                            ganadorHGMin = ganadorHG;
+
+                            int i = 0;
+                            while (jugadores[ganadorHGMin][i]!=0) {
+                                i++;
+                            }
+                            char jugadorMin[i+1];
+                            for (int j = 0; j < i+1; ++j) {
+                                jugadorMin[j] = jugadores[ganadorHGMin][j];
+                            }
+                            *punteroTam = i;
+                            strcpy(jugadorMin2, jugadorMin);
+
+                            rondasMin = ronda;
+                            cGeneralHG = true;
+                            band = false;
+                        } else if (ronda < rondasMin) {
+                            ganadorHGMin = ganadorHG;
+
+                            int i = 0;
+                            while (jugadores[ganadorHGMin][i]!=0) {
+                                i++;
+                            }
+                            char jugadorMin[i+1];
+                            for (int j = 0; j < i+1; ++j) {
+                                jugadorMin[j] = jugadores[ganadorHGMin][j];
+                            }
+                            *punteroTam = i;
+
+                            strcpy(jugadorMin2, jugadorMin);
+                            rondasMin = ronda;
+                        }
                         break;
                     case 7:
                         petNombre(jugadores, apellidos, 2);
-                        dosJugadores(condicionCls, jugadores, apellidos, 2, puntaje, ronda, jugadorHG, apellidoHG, rondasHG, cGeneralHG);
+                        dosJugadores(condicionCls, jugadores, apellidos, 2, puntaje, ronda);
+                        band = true;
                         break;
                     case 9:
-                        mostrarPuntuacion(condicionCls, jugadorHG, apellidoHG, rondasHG, cGeneralHG);
+                        //mostrarPuntuacion(condicionCls, jugadorHG, apellidoHG, rondasHG, cGeneralHG);
+                        rlutil::cls();
+                        recuadroJuego();
+                        condicionCls = 1;
+
+                        label("PUNTAJE MAS ALTO", 55, 6);
+                        label("NOMBRE: ", 44, 9);
+                        label("APELLIDO: ", 44, 11);
+                        label("RONDAS:", 44, 13);
+
+                        if (cGeneralHG) {
+                            int valorX = 55;
+                            rlutil::locate(valorX, 9);
+                            for (int i = 0; i < tam; ++i) {
+                                std::cout << jugadorMin2[i];
+                            }
+                            rlutil::locate(55, 11);
+                            //std::cout << apellidoMin;
+
+                            rlutil::locate(55, 13);
+                            std::cout << rondasMin;
+                        }
+                        rlutil::anykey();
+
                         break;
                     case 11:
                         //SALIR
