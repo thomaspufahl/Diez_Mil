@@ -7,71 +7,52 @@
 
 #endif //DIEZ_MIL_DOSJUGADORES_H
 //devcomm
-int dosJugadores(int &condicionCls, char jugadores[][35], char apellidos[][35], int cantidadPJ, int puntuacion[], int &rondas) {
+int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int cantidadPJ, int puntuacion[], int &rondas) {
     rlutil::cls();
     condicionCls = 1;
     int puntosXRonda;
-    int puntosAux;
+    int puntosAux=0;
     int dados[6];
     int mostrarCaso4;
     int jugada;
-    int lanzamientos=0;
-    bool bCambioTurno=true;
-    int cCambioTurno;
-
+    int lanzamientos;
+    int ganador;
     do {
-        if (rondas!=0) {bCambioTurno = !bCambioTurno;}
-        cCambioTurno=0;
+        lanzamientos=0;
         rondas++;
         pantallaTurno(rondas, jugadores, cantidadPJ, puntuacion);
         rlutil::cls();
 
+        ///ESTILOS
+        //CABECERA
+        recuadroJuego();
+        //numero de ronda
+        rlutil::locate(56, 4);
+        std::cout << "RONDA N" << char(248) << " " << rondas;
+        lineaHorizontal(6, 196);
+
+        //CUERPO
+        //jugador
+        lineaVertical(46, 179);
+        rlutil::locate(21, 7);
+        std::cout << "JUEGA " << strupr(jugadores[0]);
+        //puntaje
+        rlutil::locate(10, 9);
+        std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
+        //puntaje x ronda
+        rlutil::locate(10, 10);
+        std::cout << char(4) << " " << "PUNTAJE DE LA RONDA: " << puntosAux << " PUNTOS";
+        //lanzamientos
+        rlutil::locate(10, 12);
+        std::cout << char(4) << " " << "LANZAMIENTOS: " << lanzamientos;
+
         ///TIRADA || JUEGO
         bool band = true;
-        bool band2 = true;
 
         int posX = 19;
         int posY = 22;
 
         do {
-            if (!bCambioTurno && band2) {
-                lanzamientos=0;
-                band2 = false;
-            }
-            ///ESTILOS
-            //CABECERA
-            recuadroJuego();
-            //numero de ronda
-            rlutil::locate(56, 4);
-            std::cout << "RONDA N" << char(248) << " " << rondas;
-            lineaHorizontal(6, 196);
-
-            //CUERPO
-            //jugador
-            lineaVertical(46, 179);
-            rlutil::locate(21, 7);
-            if (bCambioTurno) {
-                std::cout << "JUEGA " << strupr(jugadores[0]);
-            } else {
-                std::cout << "JUEGA " << strupr(jugadores[1]);
-            }
-            //puntaje
-            rlutil::locate(10, 9);
-            if (bCambioTurno) {
-                std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
-            } else {
-                std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[1] << " PUNTOS";
-            }
-
-            //puntaje x ronda
-            rlutil::locate(10, 10);
-            puntosAux=0;
-            std::cout << char(4) << " " << "PUNTAJE DE LA RONDA: " << puntosAux << " PUNTOS";
-            //lanzamientos
-            rlutil::locate(10, 12);
-            std::cout << char(4) << " " << "LANZAMIENTO N" << char(248) << " " << lanzamientos;
-
-
             label("TIRAR DADOS", 21, 22);
             label("GUARDAR PUNTOS", 21, 24);
 
@@ -103,16 +84,10 @@ int dosJugadores(int &condicionCls, char jugadores[][35], char apellidos[][35], 
                             mostrarSumaPuntaje(puntosXRonda);
 
                             rlutil::locate(10, 12);
-                            std::cout << char(4) << " " << "LANZAMIENTO N" << char(248) << " " << lanzamientos;
-
-                            rlutil::locate(21, 7);
+                            std::cout << char(4) << " " << "LANZAMIENTOS N" << char(248) << " " << lanzamientos;
 
                             rlutil::locate(10, 9);
-                            if (bCambioTurno) {
-                                std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
-                            } else {
-                                std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[1] << " PUNTOS";
-                            }
+                            std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
 
                             if (jugada!=7) {
                                 rlutil::msleep(750);
@@ -131,66 +106,32 @@ int dosJugadores(int &condicionCls, char jugadores[][35], char apellidos[][35], 
                                 rlutil::msleep(500);
                                 label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
                                 rlutil::anykey();
-
-                                bCambioTurno = !bCambioTurno;
-                                cCambioTurno++;
-                                if (cCambioTurno==2) {
-                                    band = false;
-                                } else if (cCambioTurno==1) {
-                                    rlutil::cls();
-                                }
+                                band=false;
                             }
                             if (jugada==7){
                                 //significa que saque un sexteto
+                                puntuacion[0]=puntosXRonda;
                                 label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
                                 rlutil::anykey();
-                                if (bCambioTurno) {
-                                    puntuacion[0]=puntosXRonda;
-                                } else {
-                                    puntuacion[1]=puntosXRonda;
-                                }
-                                bCambioTurno = !bCambioTurno;
-                                cCambioTurno++;
-                                if (cCambioTurno==2) {
-                                    band = false;
-                                } else if (cCambioTurno==1) {
-                                    rlutil::cls();
-                                }
+                                band = false;
                             }
                             break;
                         case 24:
-                            if (bCambioTurno) {
-                                if (puntuacion[0]+puntosAux>10000){
-                                    label("TE PASASTE DE LOS 10.000", 11, 22);
-                                    rlutil::anykey();
-                                } else {
-                                    puntuacion[0]+=puntosAux;
-                                }
+                            if (puntuacion[0]+puntosAux>10000){
+                                label("TE PASASTE DE LOS 10.000", 13, 22);
+                                limpiarJuego();
+                                rlutil::anykey();
                             } else {
-                                if (puntuacion[1]+puntosAux>10000){
-                                    label("TE PASASTE DE LOS 10.000", 11, 22);
-                                    rlutil::anykey();
-                                } else {
-                                    puntuacion[1]+=puntosAux;
-                                }
+                                puntuacion[0]+=puntosAux;
                             }
+                            puntosAux=0;
                             rlutil::msleep(500);
                             limpiarJuego();
                             rlutil::locate(10, 9);
-                            if (bCambioTurno) {
-                                std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
-                            } else {
-                                std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[1] << " PUNTOS";
-                            }
+                            std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
                             label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
                             rlutil::anykey();
-
-                            bCambioTurno = !bCambioTurno;
-                            cCambioTurno++;
-                            if (cCambioTurno==2) {
-                                band=false;
-                            }
-                            rlutil::cls();
+                            band=false;
                             break;
                         default:
                             break;
@@ -203,24 +144,20 @@ int dosJugadores(int &condicionCls, char jugadores[][35], char apellidos[][35], 
         ///PANTALLAS DE FIN DE JUEGO
         if (jugada==7) {
             //pantalla final de sexteto
-            if (cCambioTurno==2) {
-                pantallaFinal("GANADOR POR COMBINACION GANADORA: SEXTETO", 40, 10, jugadores, apellidos, 2, puntuacion, rondas, false, jugada);
-                rlutil::anykey();
-                return 0;
-            }
+            ganador = pantallaFinal("GANADOR POR COMBINACION GANADORA: SEXTETO", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
+            rlutil::anykey();
+            return ganador;
         }
         if (puntuacion[0]==10000) {
             //pantalla final de ganador basico
-            if (cCambioTurno==2) {
-                pantallaFinal("FINALIZACION POR LLEGAR A 10.000 PUNTOS", 40, 10, jugadores, apellidos, 2, puntuacion, rondas, false, jugada);
-                rlutil::anykey();
-                return 0;
-            }
+            ganador = pantallaFinal("FINALIZACION POR LLEGAR A 10.000 PUNTOS", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
+            rlutil::anykey();
+            return ganador;
         }
     } while (rondas!=10);
     //pantalla final de ganador por puntos
     rondas++;
-    pantallaFinal("FINALIZACION DE RONDAS, GANADOR POR PUNTAJE", 40, 10, jugadores, apellidos, 2, puntuacion, rondas, false, jugada);
+    ganador = pantallaFinal("FINALIZACION DE RONDAS, GANADOR POR PUNTAJE", 40, 10, jugadores, apellidos, 1, puntuacion, rondas,true, jugada);
     rlutil::anykey();
-    return 0;
+    return ganador;
 }
