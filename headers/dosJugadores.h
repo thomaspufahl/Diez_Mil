@@ -65,7 +65,7 @@ int dosJugadores(int &condicionCls, char jugadores[][35], char apellidos[][35], 
 
             //puntaje x ronda
             rlutil::locate(10, 10);
-            //puntosAux=0;
+            puntosAux=0;
             std::cout << char(4) << " " << "PUNTAJE DE LA RONDA: " << puntosAux << " PUNTOS";
             //lanzamientos
             rlutil::locate(10, 12);
