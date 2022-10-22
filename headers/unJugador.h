@@ -121,14 +121,14 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
                             break;
                         case 24:
                             if (puntuacion[0]+puntosAux>10000){
-                                label("TE PASASTE DE LOS 10.000", 13, 22);
                                 limpiarJuego();
-                                rlutil::anykey();
+                                label("TE PASASTE DE LOS 10.000", 16, 22);
+                                rlutil::msleep(750);
                             } else {
                                 puntuacion[0]+=puntosAux;
                             }
                             puntosAux=0;
-                            rlutil::msleep(500);
+                            rlutil::msleep(250);
                             limpiarJuego();
                             rlutil::locate(10, 9);
                             std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
