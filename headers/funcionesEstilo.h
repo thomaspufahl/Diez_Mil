@@ -12,7 +12,7 @@ void label(char* texto, int posX, int posY);
 void labelInt(int caracter, int posX, int posY);
 void bordeMenu();
 void bordePetJugador();
-void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[], int &turno);
+void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[], int &turno, int jugadasJugadores[]);
 void recuadroRondas();
 void recuadroJuego();
 void lineaHorizontal(int posY, int caracter);
@@ -24,7 +24,7 @@ void mostrarSumaPuntaje(int puntaje);
 void cuadrado(int posX, int posY, int caracter);
 void limpiarCuadrado(int posX, int posY);
 void limpiarJuego();
-int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char apellidos[][35], int cantidad, int puntuacion[], int rondas, bool ganador, int jugada);
+int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char apellidos[][35], int cantidad, int puntuacion[], int rondas, bool ganador, int jugadasJugadores[]);
 
 
 
@@ -105,21 +105,29 @@ void bordePetJugador() {
     std::cout << (char)205;
 }
 
-void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[], int &turno) {
+void pantallaTurno(int &rondas, char jugadores[][35], int cantidadPJ, int puntuacion[], int &turno, int jugadasJugadores[]) {
     rlutil::cls();
     recuadroRondas();
+
     rlutil::locate(54, 6);
     std::cout << "RONDA N" << char(248) << " " << rondas;
 
     rlutil::locate(49, 8);
     std::cout << "PROXIMO TURNO: " << strupr(jugadores[turno]);
-
     rlutil::locate(46, 11);
-    std::cout << "PUNTAJE DE " << strupr(jugadores[0]) << ": " << puntuacion[0] << " PUNTOS";
+    if (jugadasJugadores[0]==7) {
+        std::cout << "PUNTAJE DE " << strupr(jugadores[1]) << ": SEXTETO";
+    } else {
+        std::cout << "PUNTAJE DE " << strupr(jugadores[0]) << ": " << puntuacion[0] << " PUNTOS";
+    }
 
     if (cantidadPJ>1) {
         rlutil::locate(46, 12);
-        std::cout << "PUNTAJE DE " << strupr(jugadores[1]) << ": " << puntuacion[1] << " PUNTOS";
+        if (jugadasJugadores[1]==7) {
+            std::cout << "PUNTAJE DE " << strupr(jugadores[1]) << ": SEXTETO";
+        } else  {
+            std::cout << "PUNTAJE DE " << strupr(jugadores[1]) << ": " << puntuacion[1] << " PUNTOS";
+        }
         std::cout << std::endl;
     }
 
@@ -407,7 +415,7 @@ void limpiarJuego() {
     label("                ", 19, 24);
 }
 
-int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char apellidos[][35], int cantidad, int puntuacion[], int rondas, bool ganador, int jugada) {
+int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char apellidos[][35], int cantidad, int puntuacion[], int rondas, bool ganador, int jugadasJugadores[]) {
     //GANADOR TRUE PARA MODO UN JUGADOR
     //GANADOR FALSE PARA MODO DOS JUGADORES
     rlutil::cls();
@@ -431,7 +439,7 @@ int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char ap
         rlutil::locate(posX, posY);
         std::cout << razon;
         rlutil::locate(40, posY+6);
-        if (jugada!=7) {
+        if (jugadasJugadores[0]!=7 && jugadasJugadores[1]!=7) {
             std::cout << "PUNTAJE DE " << jugadores[0] << ": " << puntuacion[0];
             rlutil::locate(40, posY+7);
             std::cout << "PUNTAJE DE " << jugadores[1] << ": " << puntuacion[1];
@@ -439,7 +447,20 @@ int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char ap
         rlutil::anykey();
         return 2;
     }
-
+    if (puntuacion[max]<10000 && cantidad==1) {
+        rlutil::locate(posX, posY);
+        std::cout << razon;
+        rlutil::locate(40, 12);
+        std::cout << "DERROTA";
+        rlutil::locate(40, 13);
+        std::cout << "NO ALCANZASTE EL PUNTAJE NECESARIO";
+        rlutil::locate(40, posY+6);
+        std::cout << "PUNTAJE DE " << jugadores[0] << ": " << puntuacion[0];
+        rlutil::locate(40, posY+7);
+        std::cout << "RONDA: " << rondas-1 << "/10";
+        rlutil::anykey();
+        return 3;
+    }
     rlutil::locate(40, 12);
     std::cout << "EL GANADOR FUE: " << jugadores[max] << " " << strupr(apellidos[max]);
     rlutil::locate(40, 14);
@@ -451,7 +472,7 @@ int pantallaFinal(char* razon, int posX, int posY, char jugadores[][35], char ap
     rlutil::locate(posX, posY);
     std::cout << razon;
     rlutil::locate(40, posY+6);
-    if (jugada!=7) {
+    if (jugadasJugadores[max]!=7) {
         std::cout << "PUNTAJE: " << puntuacion[max];
     }
 

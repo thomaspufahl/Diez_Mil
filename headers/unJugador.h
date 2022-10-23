@@ -17,13 +17,14 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
     int dados[6];
     int mostrarCaso4;
     int jugada;
+    int jugadaJugador[1]={0};
     int lanzamientos;
     int ganador;
     int TURNO = 0;
     do {
         lanzamientos=0;
         rondas++;
-        pantallaTurno(rondas, jugadores, cantidadPJ, puntuacion, TURNO);
+        pantallaTurno(rondas, jugadores, cantidadPJ, puntuacion, TURNO, jugadaJugador);
         rlutil::cls();
 
         ///ESTILOS
@@ -92,6 +93,8 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
                             rlutil::locate(10, 9);
                             std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
 
+                            jugadaJugador[0]=jugada;
+
                             if (jugada!=7) {
                                 rlutil::msleep(750);
                                 rlutil::locate(10, 10);
@@ -99,13 +102,18 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
                             }
 
                             if (jugada==0) {
+                                //significa jugada perdedora
                                 rlutil::locate(10, 10);
                                 std::cout << char(4) << " " << "                     " << puntosAux << "       ";
+
                                 puntosAux=0;
+
                                 rlutil::locate(10, 10);
                                 std::cout << char(4) << " " << "PUNTAJE DE LA RONDA: " << puntosAux << " PUNTOS";
+
                                 label("             ", 19, 22);
                                 label("                ", 19, 24);
+
                                 rlutil::msleep(500);
                                 label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
                                 rlutil::anykey();
@@ -114,8 +122,10 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
                             if (jugada==7){
                                 //significa que saque un sexteto
                                 puntuacion[0]=puntosXRonda;
+
                                 label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
                                 rlutil::anykey();
+
                                 band = false;
                             }
                             break;
@@ -123,17 +133,20 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
                             if (puntuacion[0]+puntosAux>10000){
                                 limpiarJuego();
                                 label("TE PASASTE DE LOS 10.000", 16, 22);
-                                rlutil::msleep(750);
                             } else {
+                                limpiarJuego();
                                 puntuacion[0]+=puntosAux;
                             }
                             puntosAux=0;
+
                             rlutil::msleep(250);
-                            limpiarJuego();
+
                             rlutil::locate(10, 9);
                             std::cout << char(4) << " " << "PUNTAJE TOTAL: " << puntuacion[0] << " PUNTOS";
-                            label("-PULSA UNA TECLA PARA CONTINUAR", 12, 22);
+
+                            label("-PULSA UNA TECLA PARA CONTINUAR", 12, 24);
                             rlutil::anykey();
+
                             band=false;
                             break;
                         default:
@@ -147,20 +160,20 @@ int unJugador(int &condicionCls, char jugadores[][35], char apellidos[][35], int
         ///PANTALLAS DE FIN DE JUEGO
         if (jugada==7) {
             //pantalla final de sexteto
-            ganador = pantallaFinal("GANADOR POR COMBINACION GANADORA: SEXTETO", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
+            ganador = pantallaFinal("GANADOR POR COMBINACION GANADORA: SEXTETO", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugadaJugador);
             rlutil::anykey();
             return ganador;
         }
         if (puntuacion[0]==10000) {
             //pantalla final de ganador basico
-            ganador = pantallaFinal("FINALIZACION POR LLEGAR A 10.000 PUNTOS", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugada);
+            ganador = pantallaFinal("FINALIZACION POR LLEGAR A 10.000 PUNTOS", 40, 10, jugadores, apellidos, 1, puntuacion, rondas, true, jugadaJugador);
             rlutil::anykey();
             return ganador;
         }
     } while (rondas!=10);
-    //pantalla final de ganador por puntos
+    //pantalla final de límite de rondas
     rondas++;
-    ganador = pantallaFinal("FINALIZACION DE RONDAS, GANADOR POR PUNTAJE", 40, 10, jugadores, apellidos, 1, puntuacion, rondas,true, jugada);
+    ganador = pantallaFinal("FINALIZACION POR LIMITE DE RONDAS (10/10)", 40, 10, jugadores, apellidos, 1, puntuacion, rondas,true, jugadaJugador);
     rlutil::anykey();
     return ganador;
 }

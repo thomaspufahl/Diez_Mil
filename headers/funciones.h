@@ -79,21 +79,26 @@ void antiCls(int &condicionCls) {
 }
 
 void guardarDados(int vec[], int tam) {
+    /*
     srand(time(nullptr));
     for (int i = 0; i < tam; ++i) {
         vec[i]=(1+rand()%6);
     }
+     */
+    vec[0]=1;
+    vec[1]=1;
+    vec[2]=1;
+    vec[3]=1;
+    vec[4]=1;
+    vec[5]=1;
 }
 
 int cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][35], int* &punteroTam, char* jugadorMinCpy, int &rondasMin, int &ronda, bool &bVisualHg, int* &punteroTam2, char* apellidoMinCpy, char apellidos[][35]) {
-    if (ganadorHg==2) {
-        *jugadorMinCpy = *" ";
-        *apellidoMinCpy = *" ";
-       return 0;
-    }
-
     if (bandHg) {
         ganadorHgMin = ganadorHg;
+        if (ganadorHgMin==2 || ganadorHgMin==3) {
+            return 0;
+        }
         //nombre
         int i = 0;
         while (jugadores[ganadorHgMin][i]!=0) {
@@ -105,6 +110,7 @@ int cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][
         }
         *punteroTam = i;
         strcpy(jugadorMinCpy, jugadorMin);
+        //-
         //apellido
         int x = 0;
         while (apellidos[ganadorHgMin][x]!=0) {
@@ -116,12 +122,17 @@ int cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][
         }
         *punteroTam2 = x;
         strcpy(apellidoMinCpy, apellidoMin);
+        //-
 
+        //rondas
         rondasMin = ronda;
         bVisualHg = true;
         bandHg = false;
     } else if (ronda < rondasMin) {
         ganadorHgMin = ganadorHg;
+        if (ganadorHgMin==2 || ganadorHgMin==3) {
+            return 0;
+        }
         //nombre
         int i = 0;
         while (jugadores[ganadorHgMin][i]!=0) {
@@ -146,6 +157,7 @@ int cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][
         *punteroTam2 = x;
         strcpy(apellidoMinCpy, apellidoMin);
         //-
+        //rondas
         rondasMin = ronda;
     }
     return 0;

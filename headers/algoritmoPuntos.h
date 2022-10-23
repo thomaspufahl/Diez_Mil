@@ -56,7 +56,7 @@ int identificarJugada(int vec[], int tam, int &puntos, int &varCaso4) {
         }
     }
     if (cont5>=4) {
-        puntos+=2000;
+        puntos+=5000;
         return 5;
     }
 
