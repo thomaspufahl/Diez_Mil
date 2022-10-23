@@ -79,18 +79,10 @@ void antiCls(int &condicionCls) {
 }
 
 void guardarDados(int vec[], int tam) {
-    /*
     srand(time(nullptr));
     for (int i = 0; i < tam; ++i) {
         vec[i]=(1+rand()%6);
     }
-     */
-    vec[0]=1;
-    vec[1]=1;
-    vec[2]=1;
-    vec[3]=1;
-    vec[4]=1;
-    vec[5]=1;
 }
 
 int cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][35], int* &punteroTam, char* jugadorMinCpy, int &rondasMin, int &ronda, bool &bVisualHg, int* &punteroTam2, char* apellidoMinCpy, char apellidos[][35]) {
