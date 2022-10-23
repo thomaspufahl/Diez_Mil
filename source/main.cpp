@@ -70,9 +70,9 @@ int main() {
         labelInt(caracter, posX, posY);
 
         int key = rlutil::getkey();
-        //up    14
-        //down  15
-        //enter 1
+        //flecha arriba  14
+        //flecha abajo   15
+        //enter          1
 
         switch (key) {
             case 14:
