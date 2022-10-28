@@ -88,7 +88,7 @@ void guardarDados(int vec[], int tam) {
 int cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][35], int* &punteroTam, char* jugadorMinCpy, int &rondasMin, int &ronda, bool &bVisualHg, int* &punteroTam2, char* apellidoMinCpy, char apellidos[][35]) {
     if (bandHg) {
         ganadorHgMin = ganadorHg;
-        if (ganadorHgMin==2 || ganadorHgMin==3) {
+        if (ganadorHgMin==2 || ganadorHgMin==3 || ganadorHgMin==4) {
             return 0;
         }
         //nombre
@@ -122,7 +122,7 @@ int cargarHG (bool &bandHg, int &ganadorHgMin, int &ganadorHg, char jugadores[][
         bandHg = false;
     } else if (ronda < rondasMin) {
         ganadorHgMin = ganadorHg;
-        if (ganadorHgMin==2 || ganadorHgMin==3) {
+        if (ganadorHgMin==2 || ganadorHgMin==3 || ganadorHgMin==4) {
             return 0;
         }
         //nombre
